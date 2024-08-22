@@ -13,6 +13,8 @@ def serialize(lux_options, cwd):
     # The serialized data will be in the 'luxoptions.ser' file
     with open(f'{cwd}/server/luxoptions.ser', 'rb') as f:
         serialized_data = f.read()
+    os.unlink(f'{cwd}/lux_options.json')
+    os.unlink(f'{cwd}/luxoptions.ser')
     print(serialized_data.hex())
     return serialized_data.hex()
 
@@ -25,5 +27,6 @@ def deserialize(ser_file, cwd):
     # The serialized data will be in the 'luxoptions.ser' file
     with open(f'{cwd}/server/luxoptions.ser', 'rb') as f:
         serialized_data = f.read()
+    os.unlink(f'{cwd}/luxoptions.ser')
     print(serialized_data.hex())
     return serialized_data.hex()
