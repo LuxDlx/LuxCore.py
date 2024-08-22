@@ -2,9 +2,21 @@ import os
 import sys
 import re
 import io
+import stat
+import shutil
+import time
 from PyQt5.QtCore import QtMsgType
+import util.LuxFilesGetter as LuxFilesGetter
 
 cwd = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+JAR_FILE_DICT = {"bubbleSource1.png":"assets/bubbleSource1.png", "bubbleSource3.png":"assets/bubbleSource3.png",
+"bubbleSource5.png":"assets/bubbleSource5.png", "Dirty Headline Custom Sillysoft.ttf":"assets/DirtyHeadline.ttf", "guybw1.png":"assets/guybw1.png",
+"guybw2.png":"assets/guybw2.png", "guybw3.png":"assets/guybw3.png", "guybw4.png":"assets/guybw4.png", "LuxDeluxLogo.png":"assets/LuxDeluxLogo.png",
+"not_available.jpg":"assets/not_available.jpg", "texture_background.jpg":"assets/texture_background.jpg", "texture_map.jpg":"assets/texture_map.jpg",
+"texture_network.jpg":"assets/texture_network.jpg", "texture_players.jpg":"assets/texture_players.jpg"}
+
+FILE_DICT = {"LuxCore.jar":"assets/LuxCore.jar"}
 
 def get_locales(language: str, string: str, editor: bool = False):
     if editor:
@@ -117,3 +129,36 @@ def analyze_strings(str1, str2):
         'string2_info': info_str2,
         'comparison': comparison,
     }
+
+def _remove_readonly(func, path, _):
+    "Clear the readonly bit and reattempt the removal"
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+
+def _remove_dir_robustly(path, max_retries=5, delay=1):
+    """Remove a directory and all its contents, with retry mechanism."""
+    for _ in range(max_retries):
+        try:
+            shutil.rmtree(path, onerror=_remove_readonly)
+            return  # If successful, exit the function
+        except PermissionError as e:
+            print(f"Permission error: {e}. Retrying...")
+            time.sleep(delay)  # Wait before retrying
+        except Exception as e:
+            print(f"Unexpected error: {e}. Retrying...")
+            time.sleep(delay)  # Wait before retrying
+    
+    print(f"Failed to remove directory after {max_retries} attempts.")
+
+def firststartup():
+    if os.path.exists("tmp"):
+        _remove_dir_robustly("tmp")
+    os.makedirs("tmp",exist_ok=True)
+    try:
+        LuxFilesGetter.download_lux("tmp/Lux.tgz")
+        LuxFilesGetter.extract_tgz("tmp/Lux.tgz","tmp")
+        LuxFilesGetter.extract_from_jar("tmp/LuxDelux/LuxCore.jar", JAR_FILE_DICT)
+        LuxFilesGetter.get_from_folder("tmp/LuxDelux", FILE_DICT)
+    except:
+        sys.exit(1)
+    _remove_dir_robustly("tmp")

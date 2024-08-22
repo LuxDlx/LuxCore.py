@@ -15,7 +15,7 @@ qInstallMessageHandler(utils.qt_message_handler) # Comment out this line for deb
 
 if not os.path.exists(f"{cwd}/cache/config.json"):
     with open(f"{cwd}/cache/config.json","w") as f:
-        json.dump({"Username": "YOUR_NAME", "RegKey": "YOUR_REGKEY", "Language":"en"}, f)
+        json.dump({"Username": "YOUR_NAME", "RegKey": "YOUR_REGKEY", "Language": "en", "_firststartup": False}, f)
 
 class LuxCore(QMainWindow):
     def __init__(self):
@@ -451,6 +451,13 @@ class LuxCore(QMainWindow):
         self.game_window.show()
         
 if __name__ == "__main__":
+    with open(f"{cwd}/cache/config.json","r") as f:
+        a = json.load(f)
+    if a["_firststartup"] == False:
+        utils.firststartup()
+        a["_firststartup"] = True
+    with open(f"{cwd}/cache/config.json","w") as f:
+        json.dump(a,f)    
     app = QApplication(sys.argv)
     MainWindow = LuxCore()
     MainWindow.show()
