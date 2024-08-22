@@ -1,0 +1,35 @@
+{
+    "players": {
+        "0": {
+            "color": 4278190335,
+            "name": "QWERTZ",
+            "AI": "Human"
+        },
+        "1": {
+            "color": 4294901760,
+            "name": "GFips",
+            "AI": "Human"
+        },
+        "2": {
+            "color": 4278233600,
+            "name": "SecondTermMistake",
+            "AI": "Human"
+        },
+        "3": {
+            "color": 4294945280,
+            "name": "Strongbad",
+            "AI": "Human"
+        },
+        "4": {
+            "color": 4292664540,
+            "name": "controleola",
+            "AI": "Human"
+        },
+        "5": {
+            "color": 4280953386,
+            "name": "Lux Luthor",
+            "AI": "Human"
+        }
+    },
+    "map": "Classic Widescreen"
+}
