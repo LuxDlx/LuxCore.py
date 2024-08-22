@@ -46,8 +46,8 @@ class LuxCore(QMainWindow):
             a = json.load(f)
         self.username = a["Username"]
         lang = a["Language"]
-        self.regcode = a["RegCode"]
-        
+        self.regcode = a["RegKey"]
+
         ### DO_NOT_USE_IN_PROD
         self.botlist = ["Angry", "Communist", "Reaper", "BotOfDoom"]
         ### END
