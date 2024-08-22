@@ -25,6 +25,7 @@ assets/texture_network.jpg
 assets/texture_players.jpg
 
 docs/*
+!docs/documentation.md
 locales/*
 maps/*
 themes/*
