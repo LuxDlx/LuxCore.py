@@ -167,6 +167,7 @@ def firststartup():
     os.makedirs("themes/IRexp",exist_ok=True)
     os.makedirs("themes/MB Napoleon",exist_ok=True)
     os.makedirs("themes/MB Pacific Redux",exist_ok=True)
+    os.makedirs("themes/MB Silicon Valley HD",exist_ok=True)
     os.makedirs("themes/MB WWII Europe Redux",exist_ok=True)
     os.makedirs("themes/Ocean",exist_ok=True)
     os.makedirs("themes/Roman Empire II",exist_ok=True)
