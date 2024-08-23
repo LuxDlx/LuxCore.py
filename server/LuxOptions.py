@@ -1,3 +1,20 @@
+# Copyright (C) 2024  QWERTZexe
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation, either version 2.1 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+######################################################
+
 import subprocess
 import json
 import os
@@ -27,6 +44,6 @@ def deserialize(ser_file, cwd):
     # The serialized data will be in the 'luxoptions.ser' file
     with open(f'{cwd}/server/luxoptions.ser', 'rb') as f:
         serialized_data = f.read()
-    os.unlink(f'{cwd}/luxoptions.ser')
+    os.unlink(f'{cwd}/luxoptions.ser') 
     print(serialized_data.hex())
     return serialized_data.hex()
