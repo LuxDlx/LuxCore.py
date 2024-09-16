@@ -344,7 +344,14 @@ class GameWindow(QMainWindow):
                 if messageraw.startswith("CHAT: "):
                     self.add_chat_message(messageraw[6:])  
                 elif messageraw.startswith("tra: "):
-                    self.add_chat_message(messageraw[5:], system=True)
+                    mode = messageraw[5]
+                    if mode == "3":
+                        self.add_chat_message(f"★ {messageraw[7:]} ★", system=True)
+                    elif mode == "4":
+                        self.add_chat_message(messageraw[7:], system=True)
+                    else:
+                        donestr = messageraw[7:].split(" ")[0]
+                        self.add_chat_message(f"★ {donestr} ★", system=True)
                 elif messageraw.startswith("EMOTE: "):
                     self.add_chat_message(messageraw[7:], emote="EMOTE")
                 elif messageraw.startswith("SMOTE: "):
