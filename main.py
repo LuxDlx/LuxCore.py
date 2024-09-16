@@ -15,7 +15,7 @@
 
 ######################################################
 
-from PyQt6.QtGui import QFont, QFontDatabase, QPixmap, QAction, QColor
+from PyQt6.QtGui import QFont, QFontDatabase, QPixmap, QAction, QColor, QIcon
 from PyQt6.QtCore import QRect, QMetaObject, qInstallMessageHandler
 from PyQt6.QtWidgets import QMainWindow, QWidget, QLabel, QGroupBox, QLineEdit, QComboBox, QCheckBox, QPushButton, QVBoxLayout, QHBoxLayout, QMenuBar, QMenu, QGridLayout, QApplication, QColorDialog
 import util.utils as utils
@@ -476,6 +476,8 @@ if __name__ == "__main__":
     with open(f"{cwd}/cache/config.json","w") as f:
         json.dump(a,f)    
     app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon(f"{cwd}/assets/Icon.png"))
+    app.setStyle("windowsvista")
     MainWindow = LuxCore()
     MainWindow.show()
     sys.exit(app.exec())

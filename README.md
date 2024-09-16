@@ -7,3 +7,5 @@ See LICENSE_GSON
 ## Eclipse Adoptium and their OpenJDK (21)
 (Licensed under GPL 3.0)
 See LICENSE_JAVA
+## Freepik and their Earth Icon
+https://www.freepik.com/icon/earth_9985768

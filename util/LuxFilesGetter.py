@@ -207,6 +207,7 @@ class GetFromFolderWindow(QWidget):
 
 def get_from_folder(folder_path, file_dict):
     app = QApplication(sys.argv)
+    app.setStyle("windowsvista")
     window = GetFromFolderWindow()
     window.show()
 
@@ -219,6 +220,7 @@ def get_from_folder(folder_path, file_dict):
 
 def extract_from_jar(jar_path, file_dict):
     app = QApplication(sys.argv)
+    app.setStyle("windowsvista")
     window = ExtractionFromJarWindow()
     window.show()
 
@@ -231,6 +233,7 @@ def extract_from_jar(jar_path, file_dict):
 
 def extract_tgz(tgz_path, output_path):
     app = QApplication(sys.argv)
+    app.setStyle("windowsvista")
     window = ExtractionWindow()
     window.show()
 
@@ -243,6 +246,7 @@ def extract_tgz(tgz_path, output_path):
 
 def download_lux(path):
     app = QApplication(sys.argv)
+    app.setStyle("windowsvista")
     window = DownloadWindow()
     window.show()
 
