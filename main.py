@@ -24,6 +24,7 @@ from util.GameWindow import GameWindow
 import os
 import sys
 import json
+import subprocess
 import webbrowser
 
 cwd = os.path.dirname(os.path.abspath(sys.argv[0]))
@@ -345,9 +346,6 @@ class LuxCore(QMainWindow):
         self.actionNewGame.setObjectName("actionNewGame")
         self.actionNewGame.setText(utils.get_locales(lang,"NewGame"))
 
-        self.actionLoadSavedGame = QAction(parent=self)
-        self.actionLoadSavedGame.setObjectName("actionLoadSavedGame")
-        self.actionLoadSavedGame.setText(utils.get_locales(lang,"OpenSavedGame"))
 
         self.actionSearchNetworkGame = QAction(parent=self)
         self.actionSearchNetworkGame.setObjectName("actionSearchNetworkGame")
@@ -375,7 +373,6 @@ class LuxCore(QMainWindow):
 
         # Now add these actions to the File menu
         self.menuFile.addAction(self.actionNewGame)
-        self.menuFile.addAction(self.actionLoadSavedGame)
         self.menuFile.addAction(self.actionSearchNetworkGame)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionPluginManager)
@@ -412,8 +409,7 @@ class LuxCore(QMainWindow):
         QMetaObject.connectSlotsByName(self)
 
         self.loadCache()
-        self.actionNewGame.triggered.connect(self.start_game)
-        #self.actionLoadSavedGame.triggered.connect(self.load_saved_game)
+        self.actionNewGame.triggered.connect(self.clone)
         #self.actionSearchNetworkGame.triggered.connect(self.search_network_game)
         #self.actionPluginManager.triggered.connect(self.open_plugin_manager)
         #self.actionSettings.triggered.connect(self.open_settings)
@@ -466,7 +462,15 @@ class LuxCore(QMainWindow):
     def start_game(self):
         self.game_window = GameWindow(self)
         self.game_window.show()
+    def clone(self):
+        # Get the path of the current script
+        current_script = sys.argv[0]
         
+        # Launch a new instance of the program
+        if sys.argv[0].rsplit(".")[0] == "exe":
+            subprocess.Popen([current_script])
+        else:
+            subprocess.Popen([sys.executable, current_script])
 if __name__ == "__main__":
     with open(f"{cwd}/cache/config.json","r") as f:
         a = json.load(f)
